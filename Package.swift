@@ -11,7 +11,6 @@ let package = Package(
         .tvOS(.v13),
         .watchOS(.v6)
     ],
-    description: "Collection of extensions for array and other collection types",
     products: [
         .library(
             name: "CollectionAdvance",
