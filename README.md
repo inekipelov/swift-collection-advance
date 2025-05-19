@@ -9,19 +9,16 @@ Collection of extensions for array and other collection types in Swift to simpli
 
 ## Features
 
-- **Safe Subscripting**: Access collection elements with optional indices, preventing out-of-bounds crashes
-- **Identifiable Support**: Extensions for working with Swift's `Identifiable` protocol
-- **Array Extensions**: Methods for unique filtering, grouping, and transforming arrays
-- **Set Extensions**: Advanced operations for sets with identifiable elements
-- **Collection Extensions**: Utilities for all collection types to improve safety and flexibility
+- Access collection elements with optional indices, preventing out-of-bounds crashes
+- Extensions for working with Swift's `Identifiable` protocol
+- Methods for unique filtering, grouping, and transforming arrays
+- Advanced operations for sets with identifiable elements
+- Utilities for all collection types to improve safety and flexibility
 
 ## Requirements
 
 - Swift 5.1+
-- iOS 13.0+
-- macOS 10.15+
-- tvOS 13.0+
-- watchOS 6.0+
+- iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+
 
 ## Installation
 
