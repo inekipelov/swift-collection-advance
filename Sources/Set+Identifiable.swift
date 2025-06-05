@@ -16,12 +16,9 @@ public extension Set where Element: Identifiable {
         }
         set {
             if let index = self.firstIndex(with: elementID) {
-                if let newValue = newValue {
-                    self.update(with: newValue)
-                } else {
-                    self.remove(at: index)
-                }
-            } else if let newValue = newValue {
+                self.remove(at: index)
+            }
+            if let newValue = newValue {
                 self.insert(newValue)
             }
         }
