@@ -18,10 +18,7 @@ Collection of extensions for array and other collection types in Swift to simpli
 ## Requirements
 
 - Swift 5.1+
-- iOS 13.0+
-- macOS 10.15+
-- tvOS 13.0+
-- watchOS 6.0+
+- iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+
 
 ## Installation
 
