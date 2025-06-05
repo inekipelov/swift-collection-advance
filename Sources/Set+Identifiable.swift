@@ -31,13 +31,18 @@ public extension Set where Element: Identifiable {
     /// - Parameters:
     ///   - id: The ID of the element to modify
     ///   - modify: A closure that modifies the matching element
-    mutating func update(by id: Element.ID, using modify: (inout Element) -> Void) {
-        update(where: { $0.id == id }, using: modify)
+    @discardableResult
+    mutating func update(
+        by id: Element.ID,
+        using modify: (inout Element) throws -> Void
+    ) rethrows -> Bool {
+        return try update(where: { $0.id == id }, using: modify)
     }
 
     /// Removes the element with the specified ID if it exists.
     /// - Parameter id: The ID of the element to remove
-    mutating func remove(by id: Element.ID) {
-        remove { $0.id == id }
+    @discardableResult
+    mutating func remove(by id: Element.ID) -> Bool {
+        return remove { $0.id == id }
     }
 }
