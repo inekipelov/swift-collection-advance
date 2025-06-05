@@ -36,7 +36,7 @@ final class CollectionIdentifiableTests: XCTestCase {
             Person(id: 4, name: "Charlie")
         ]
         let index = people.firstIndex(with: 3)
-        XCTAssertNotNil(index)
+        XCTAssertEqual(index, 2)
         XCTAssertEqual(people[index!].name, "Alice")
         
         let notFoundIndex = people.firstIndex(with: 99)
@@ -89,14 +89,14 @@ final class CollectionIdentifiableTests: XCTestCase {
         XCTAssertFalse(people.contains(id: 99))
     }
     
-    func testUniqueDictionary() {
+    func testDictionaryKeyedByID() {
         let people = [
             Person(id: 1, name: "Alice"),
             Person(id: 2, name: "Bob"),
             Person(id: 3, name: "Other Alice"),
             Person(id: 4, name: "Charlie")
         ]
-        let dict = people.uniqueDictionary()
+        let dict = people.dictionaryKeyedByID()
         XCTAssertEqual(dict.count, people.count)
         XCTAssertEqual(dict[1]?.name, "Alice")
         XCTAssertEqual(dict[2]?.name, "Bob")

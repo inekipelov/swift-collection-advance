@@ -43,7 +43,7 @@ public extension Collection where Element: Identifiable {
     
     /// Returns a dictionary mapping the IDs of elements to the elements themselves.
     /// - Returns: Dictionary with IDs as keys and elements as values
-    func uniqueDictionary() -> [Element.ID: Element] {
+    func dictionaryKeyedByID() -> [Element.ID: Element] {
         Dictionary(self.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     }
 }
