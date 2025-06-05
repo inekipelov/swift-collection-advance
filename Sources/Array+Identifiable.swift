@@ -32,13 +32,4 @@ public extension Array where Element: Identifiable {
     mutating func remove(id: Element.ID) {
         removeAll { $0.id == id }
     }
-    
-    /// Returns a new array where elements with duplicate IDs have been removed, keeping the first occurrence.
-    /// - Returns: Array with only unique elements based on their ID
-    func uniqueArray() -> [Element] {
-        var seen = Set<Element.ID>()
-        return filter { element in
-            seen.insert(element.id).inserted
-        }
-    }
 }
