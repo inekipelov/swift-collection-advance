@@ -33,22 +33,22 @@ public extension Set {
         where predicate: (Element) throws -> Bool,
         using modify: (inout Element) throws -> Void
     ) rethrows -> Bool {
-        var updated = self
-        if let element = try updated.first(where: predicate) {
-            var newMember = element
-            try modify(&newMember)
-            
-            // If the modification didn't change the element's hash/equality, no need to remove and re-add
-            if newMember == element {
+        try self.update {
+            if let element = try $0.first(where: predicate) {
+                var newMember = element
+                try modify(&newMember)
+                
+                // If the modification didn't change the element's hash/equality, no need to remove and re-add
+                if newMember == element {
+                    return true
+                }
+                
+                $0.remove(element)
+                $0.insert(newMember)
                 return true
             }
-            
-            updated.remove(element)
-            updated.insert(newMember)
-            self = updated
-            return true
+            return false
         }
-        return false
     }
     
     /// Updates an element in the set that has a specific value at the given key path.
@@ -113,35 +113,30 @@ public extension Set {
         where predicate: (Element) throws -> Bool,
         using modify: (inout Element) throws -> Void
     ) rethrows -> Int {
-        var updated = self
-        defer {
-            // If we modified the set, update the original set
-            if updated != self {
-                self = updated
-            }
-        }
-        let elementsToUpdate = try updated.filter(predicate)
-        guard !elementsToUpdate.isEmpty else { return 0 }
-        
-        var updatedCount = 0
-        
-        for element in elementsToUpdate {
-            var newMember = element
-            try modify(&newMember)
+        try self.update {
+            let elementsToUpdate = try $0.filter(predicate)
+            guard !elementsToUpdate.isEmpty else { return 0 }
             
-            // Skip if the modification didn't change the element
-            if newMember == element {
-                updatedCount += 1
-                continue
+            var updatedCount = 0
+            
+            for element in elementsToUpdate {
+                var newMember = element
+                try modify(&newMember)
+                
+                // Skip if the modification didn't change the element
+                if newMember == element {
+                    updatedCount += 1
+                    continue
+                }
+                
+                if $0.remove(element) != nil {
+                    $0.insert(newMember)
+                    updatedCount += 1
+                }
             }
             
-            if updated.remove(element) != nil {
-                updated.insert(newMember)
-                updatedCount += 1
-            }
+            return updatedCount
         }
-        
-        return updatedCount
     }
 
     /// Updates all elements in the set that have a specific value at the given key path.

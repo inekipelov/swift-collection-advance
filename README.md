@@ -12,8 +12,9 @@ Collection of extensions for array and other collection types in Swift to simpli
 - **Safe Subscripting**: Access collection elements with optional indices, preventing out-of-bounds crashes
 - **Identifiable Support**: Extensions for working with Swift's `Identifiable` protocol
 - **Array Extensions**: Methods for unique filtering, grouping, and transforming arrays
-- **Set Extensions**: Advanced operations for sets with identifiable elements
+- **Set Extensions**: Advanced operations for sets with identifiable elements and atomic updates
 - **Collection Extensions**: Utilities for all collection types to improve safety and flexibility
+- **Atomic Operations**: Update sets with optimized change detection and atomic modifications
 
 ## Requirements
 
@@ -112,6 +113,17 @@ userSet.remove(by: 2)
 
 // Remove by predicate
 userSet.remove(where: { $0.name.contains("Jane") })
+
+// Atomic updates with return value
+let wasInserted = userSet.update { set in
+    set.insert(User(id: 3, name: "Alice")).inserted
+}
+
+// Atomic updates without return value
+userSet.update { set in
+    set.insert(User(id: 4, name: "Charlie"))
+    set.remove(User(id: 1, name: "John"))
+}
 ```
 
 ## Examples
@@ -190,6 +202,35 @@ if let alice = users[id: "a1"] {
 
 // Remove by ID
 users.remove(by: "b2")
+```
+
+### Atomic Set Updates
+
+```swift
+import CollectionAdvance
+
+var numbers: Set<Int> = [1, 2, 3]
+
+// Atomic update with return value - the closure's result is preserved
+let wasInserted = numbers.update { set in
+    set.insert(4).inserted
+}
+print(numbers) // [1, 2, 3, 4]
+print(wasInserted) // true
+
+// Atomic update without return value - perform multiple operations
+var fruits: Set<String> = ["apple", "banana"]
+fruits.update { set in
+    set.insert("orange")
+    set.remove("banana")
+}
+print(fruits) // ["apple", "orange"]
+
+// Benefits of atomic updates:
+// - Changes are applied only if the set was actually modified
+// - Performance optimization for cases where no actual changes occur
+// - Useful for multiple operations that should be applied atomically
+// - Ideal when working with observers that should only be notified of actual changes
 ```
 
 ## Contributing

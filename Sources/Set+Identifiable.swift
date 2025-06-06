@@ -37,17 +37,13 @@ public extension Set where Element: Identifiable {
             self.first(with: elementID)
         }
         set {
-            var updated = self
-            defer {
-                if updated != self {
-                    self = updated
+            self.update {
+                if let index = $0.firstIndex(with: elementID) {
+                    $0.remove(at: index)
                 }
-            }
-            if let index = updated.firstIndex(with: elementID) {
-                updated.remove(at: index)
-            }
-            if let newValue = newValue {
-                updated.insert(newValue)
+                if let newValue = newValue {
+                    $0.insert(newValue)
+                }
             }
         }
     }
