@@ -77,9 +77,6 @@ users[id: 1] = User(id: 1, name: "Jonathan")
 // Remove by ID
 users.remove(id: 2)
 
-// Get a unique array based on IDs
-let uniqueUsers = users.uniqueArray()
-
 // Find elements by ID in any Collection
 let user = users.first(with: 1)
 let hasUser = users.contains(id: 1)
@@ -105,10 +102,13 @@ var userSet: Set<User> = [User(id: 1, name: "John"), User(id: 2, name: "Jane")]
 // Access by ID
 let john = userSet[id: 1]
 
-// Update an element
+// Update an element by ID
 userSet.update(by: 1) { user in
     user.name = "Jonathan"
 }
+
+// Remove by ID
+userSet.remove(by: 2)
 
 // Remove by predicate
 userSet.remove(where: { $0.name.contains("Jane") })
@@ -136,11 +136,11 @@ let books = [
 ]
 
 // Get unique books by their ID
-let uniqueBooks = books.uniqueArray()
+let uniqueBooks = books.unique(by: \.id)
 // uniqueBooks contains only 3 books (ID 1, 2, 3)
 
 // Get a dictionary mapping ID to book
-let booksDict = books.uniqueDictionary()
+let booksDict = books.dictionaryKeyedByID()
 // booksDict is [1: Book(...), 2: Book(...), 3: Book(...)]
 ```
 
