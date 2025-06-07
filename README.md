@@ -13,8 +13,9 @@ Collection of extensions for array and other collection types in Swift to simpli
 - **Identifiable Support**: Extensions for working with Swift's `Identifiable` protocol
 - **Array Extensions**: Methods for unique filtering, grouping, and transforming arrays
 - **Set Extensions**: Advanced operations for sets with identifiable elements and atomic updates
+- **Dictionary Extensions**: Atomic update operations for dictionaries
 - **Collection Extensions**: Utilities for all collection types to improve safety and flexibility
-- **Atomic Operations**: Update sets with optimized change detection and atomic modifications
+- **Atomic Operations**: Update collections with optimized change detection and atomic modifications
 
 ## Requirements
 
@@ -59,6 +60,49 @@ let usersByID = users.grouped(by: \.id) // [1: [User(id: 1, name: "John"), User(
 
 // Group elements by a closure
 let userGroups = users.grouped { $0.name.first?.description ?? "" } // ["J": [User(id: 1, name: "John"), User(id: 2, name: "Jane"), User(id: 1, name: "John")]]
+
+// Atomic updates with return value
+var numbers = [1, 2, 3]
+let newCount = numbers.update { array in
+    array.append(4)
+    array.append(5)
+    return array.count
+}
+print(numbers) // [1, 2, 3, 4, 5]
+print(newCount) // 5
+
+// Atomic updates without return value
+var fruits = ["apple", "banana"]
+fruits.update { array in
+    array.append("orange")
+    array.removeFirst()
+}
+print(fruits) // ["banana", "orange"]
+```
+
+### Dictionary Extensions
+
+```swift
+import CollectionAdvance
+
+// Atomic updates with return value
+var userAges: [String: Int] = ["Alice": 25, "Bob": 30]
+let newCount = userAges.update { dict in
+    dict["Charlie"] = 35
+    dict["Alice"] = 26
+    return dict.count
+}
+print(userAges) // ["Alice": 26, "Bob": 30, "Charlie": 35]
+print(newCount) // 3
+
+// Atomic updates without return value
+var settings: [String: String] = ["theme": "dark", "language": "en"]
+settings.update { dict in
+    dict["theme"] = "light"
+    dict["fontSize"] = "medium"
+    dict.removeValue(forKey: "language")
+}
+print(settings) // ["theme": "light", "fontSize": "medium"]
 ```
 
 ### Identifiable Extensions
