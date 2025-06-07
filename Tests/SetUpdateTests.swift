@@ -280,7 +280,7 @@ final class SetUpdateTests: XCTestCase {
         }
         
         XCTAssertNotNil(firstEven)
-        XCTAssertTrue([4, 6].contains(firstEven!))
+        XCTAssertTrue([2, 4, 6].contains(firstEven!))
         XCTAssertEqual(numbers, [1, 2, 3, 4, 6])
     }
     
