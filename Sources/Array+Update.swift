@@ -179,4 +179,28 @@ public extension Array {
         try closure(&updated)
         self = updated
     }
+    
+    /// Adds an element to the beginning of the array.
+    ///
+    /// This method inserts the specified element at index 0, shifting all existing
+    /// elements to higher indices. The array's count increases by one.
+    ///
+    /// - Parameter newElement: The element to add to the beginning of the array.
+    ///
+    /// - Complexity: O(n), where n is the number of elements in the array.
+    ///   All existing elements need to be shifted to make room for the new element.
+    ///
+    /// ## Example
+    /// ```swift
+    /// var fruits = ["apple", "banana"]
+    /// fruits.prepend("orange")
+    /// print(fruits) // Prints ["orange", "apple", "banana"]
+    /// ```
+    ///
+    /// - Note: This operation modifies the array in place. If you need to create
+    ///   a new array with the prepended element, consider using array concatenation
+    ///   with `[newElement] + array`.
+    mutating func prepend(_ newElement: Element) {
+        insert(newElement, at: 0)
+    }
 }

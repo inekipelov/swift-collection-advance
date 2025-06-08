@@ -360,4 +360,39 @@ final class ArrayUpdateTests: XCTestCase {
         // Should be optimized - no net changes
         XCTAssertEqual(numbers, originalNumbers)
     }
+    
+    // MARK: - Test for prepend(_:) extension
+    
+    func testPrependToEmptyArray() {
+        var array: [Int] = []
+        array.prepend(1)
+        
+        XCTAssertEqual(array, [1])
+        XCTAssertEqual(array.count, 1)
+    }
+    
+    func testPrependToNonEmptyArray() {
+        var array = [2, 3, 4]
+        array.prepend(1)
+        
+        XCTAssertEqual(array, [1, 2, 3, 4])
+        XCTAssertEqual(array.count, 4)
+        XCTAssertEqual(array.first, 1)
+    }
+    
+    func testPrependMultipleElements() {
+        var array = [3]
+        array.prepend(2)
+        array.prepend(1)
+        
+        XCTAssertEqual(array, [1, 2, 3])
+    }
+    
+    func testPrependStringElements() {
+        var fruits = ["apple", "banana"]
+        fruits.prepend("orange")
+        
+        XCTAssertEqual(fruits, ["orange", "apple", "banana"])
+        XCTAssertEqual(fruits.first, "orange")
+    }
 }
