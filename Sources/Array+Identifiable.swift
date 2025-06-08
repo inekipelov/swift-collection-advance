@@ -66,4 +66,62 @@ public extension Array where Element: Identifiable {
     mutating func remove(id: Element.ID) {
         removeAll { $0.id == id }
     }
+    
+    /// Moves an element with the specified ID to a new index position.
+    /// 
+    /// This method finds the element with the given ID and moves it to the specified index.
+    /// All other elements are shifted accordingly. If no element with the given ID exists,
+    /// the method returns without making any changes.
+    /// 
+    /// - Parameters:
+    ///   - id: The ID of the element to move.
+    ///   - newIndex: The destination index where the element should be moved.
+    /// 
+    /// # Example
+    /// ```swift
+    /// var users = [
+    ///     User(id: 1, name: "Alice"),
+    ///     User(id: 2, name: "Bob"), 
+    ///     User(id: 3, name: "Charlie")
+    /// ]
+    /// 
+    /// users.move(id: 3, to: 0)
+    /// // users is now [User(id: 3, name: "Charlie"), User(id: 1, name: "Alice"), User(id: 2, name: "Bob")]
+    /// ```
+    mutating func move(id: Element.ID, to newIndex: Int) {
+        guard let index = self.firstIndex(with: id) else { return }
+        self.update {
+            let element = $0.remove(at: index)
+            $0.insert(element, at: newIndex)
+        }
+    }
+    
+    /// Swaps the positions of two elements identified by their IDs.
+    /// 
+    /// This method exchanges the positions of elements with the specified IDs in the array.
+    /// If either element is not found, the method returns without making any changes.
+    /// 
+    /// - Parameters:
+    ///   - id: The ID of the first element to swap.
+    ///   - otherID: The ID of the second element to swap.
+    /// 
+    /// # Example
+    /// ```swift
+    /// var users = [
+    ///     User(id: 1, name: "Alice"),
+    ///     User(id: 2, name: "Bob"),
+    ///     User(id: 3, name: "Charlie")
+    /// ]
+    /// 
+    /// users.swap(1, and: 3)
+    /// // users is now [User(id: 3, name: "Charlie"), User(id: 2, name: "Bob"), User(id: 1, name: "Alice")]
+    /// ```
+    mutating func swap(_ id: Element.ID, and otherID: Element.ID) {
+        guard
+            let index = self.firstIndex(with: id),
+            let otherIndex = self.firstIndex(with: otherID)
+        else { return }
+        
+        swapAt(index, otherIndex)
+    }
 }
