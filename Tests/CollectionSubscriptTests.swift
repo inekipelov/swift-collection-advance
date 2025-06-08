@@ -1,6 +1,6 @@
 //
 //  CollectionSubscriptTests.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import XCTest

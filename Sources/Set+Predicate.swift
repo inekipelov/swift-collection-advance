@@ -1,6 +1,6 @@
 //
 //  Set+Predicate.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import Foundation

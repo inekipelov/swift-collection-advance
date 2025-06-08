@@ -1,6 +1,6 @@
 //
 //  Set+Identifiable.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import Foundation

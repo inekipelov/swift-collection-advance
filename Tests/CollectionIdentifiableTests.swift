@@ -1,6 +1,6 @@
 //
 //  CollectionIdentifiableTests.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import XCTest

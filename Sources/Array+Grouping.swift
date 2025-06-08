@@ -1,6 +1,6 @@
 //
 //  Array+Grouping.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import Foundation

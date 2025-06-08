@@ -1,6 +1,6 @@
 //
 //  DictionaryUpdateTests.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import XCTest
