@@ -1,5 +1,5 @@
 //
-//  ArrayIdentifiableTests.swift
+//  ArraySortingTests.swift
 //  swift-collection-advance
 //
 
@@ -85,5 +85,38 @@ final class ArraySortingTests: XCTestCase {
         let indicesToMove = IndexSet([1, 3, 5]) // elements 20, 40, 60
         numbers.move(fromOffsets: indicesToMove, toOffset: 0)
         XCTAssertEqual(numbers, [20, 40, 60, 10, 30, 50])
+    }
+    
+    func testPrependToEmptyArray() {
+        var array: [Int] = []
+        array.prepend(1)
+        
+        XCTAssertEqual(array, [1])
+        XCTAssertEqual(array.count, 1)
+    }
+    
+    func testPrependToNonEmptyArray() {
+        var array = [2, 3, 4]
+        array.prepend(1)
+        
+        XCTAssertEqual(array, [1, 2, 3, 4])
+        XCTAssertEqual(array.count, 4)
+        XCTAssertEqual(array.first, 1)
+    }
+    
+    func testPrependMultipleElements() {
+        var array = [3]
+        array.prepend(2)
+        array.prepend(1)
+        
+        XCTAssertEqual(array, [1, 2, 3])
+    }
+    
+    func testPrependStringElements() {
+        var fruits = ["apple", "banana"]
+        fruits.prepend("orange")
+        
+        XCTAssertEqual(fruits, ["orange", "apple", "banana"])
+        XCTAssertEqual(fruits.first, "orange")
     }
 }
