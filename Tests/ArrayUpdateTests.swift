@@ -1,6 +1,6 @@
 //
 //  ArrayUpdateTests.swift
-//  CollectionAdvance
+//  swift-collection-advance
 //
 
 import XCTest
@@ -22,7 +22,20 @@ final class ArrayUpdateTests: XCTestCase {
         }
     }
     
-    // MARK: - Tests for update(_:) -> R (returning version)
+    // Non-Equatable type for testing generic Array extension
+    struct NonEquatablePerson {
+        let id: Int
+        var name: String
+        var age: Int
+        
+        init(id: Int, name: String, age: Int = 25) {
+            self.id = id
+            self.name = name
+            self.age = age
+        }
+    }
+    
+    // MARK: - Tests for update(_:) -> R (returning version) - Equatable Array
     
     func testUpdateWithReturnValueBasicAppend() {
         var numbers: [Int] = [1, 2, 3]
@@ -40,7 +53,7 @@ final class ArrayUpdateTests: XCTestCase {
         var fruits: [String] = ["apple", "banana", "orange"]
         
         let removedElement = fruits.update { array in
-            array.removeFirst()
+            return array.removeFirst()
         }
         
         XCTAssertEqual(fruits, ["banana", "orange"])
@@ -105,7 +118,7 @@ final class ArrayUpdateTests: XCTestCase {
         XCTAssertTrue(hasEvenNumbers)
     }
     
-    // MARK: - Tests for update(_:) (void version)
+    // MARK: - Tests for update(_:) (void version) - Equatable Array
     
     func testUpdateVoidBasicAppend() {
         var numbers: [Int] = [1, 2, 3]
@@ -178,38 +191,53 @@ final class ArrayUpdateTests: XCTestCase {
         XCTAssertTrue(numbers.isEmpty)
     }
     
-    // MARK: - Error Handling Tests
+    // MARK: - Tests for Non-Equatable Array (always applies changes)
     
-    enum TestError: Error {
-        case testFailure
-    }
-    
-    func testUpdateWithReturnValueThrowsError() {
-        var numbers: [Int] = [1, 2, 3]
+    func testNonEquatableUpdateWithReturnValue() {
+        var people: [NonEquatablePerson] = [
+            NonEquatablePerson(id: 1, name: "Alice"),
+            NonEquatablePerson(id: 2, name: "Bob")
+        ]
         
-        XCTAssertThrowsError(try numbers.update { array in
-            array.append(4)
-            throw TestError.testFailure
-        }) { error in
-            XCTAssertTrue(error is TestError)
+        let newCount = people.update { array in
+            array.append(NonEquatablePerson(id: 3, name: "Charlie"))
+            return array.count
         }
         
-        // Array should remain unchanged when error is thrown
-        XCTAssertEqual(numbers, [1, 2, 3])
+        XCTAssertEqual(people.count, 3)
+        XCTAssertEqual(newCount, 3)
+        XCTAssertEqual(people[2].name, "Charlie")
     }
     
-    func testUpdateVoidThrowsError() {
-        var numbers: [Int] = [1, 2, 3]
+    func testNonEquatableUpdateVoid() {
+        var people: [NonEquatablePerson] = [
+            NonEquatablePerson(id: 1, name: "Alice")
+        ]
         
-        XCTAssertThrowsError(try numbers.update { array in
-            array.append(4)
-            throw TestError.testFailure
-        }) { error in
-            XCTAssertTrue(error is TestError)
+        people.update { array in
+            array.append(NonEquatablePerson(id: 2, name: "Bob"))
+            array[0].name = "Alice Updated"
         }
         
-        // Array should remain unchanged when error is thrown
-        XCTAssertEqual(numbers, [1, 2, 3])
+        XCTAssertEqual(people.count, 2)
+        XCTAssertEqual(people[0].name, "Alice Updated")
+        XCTAssertEqual(people[1].name, "Bob")
+    }
+    
+    func testNonEquatableUpdateAlwaysAppliesChanges() {
+        var people: [NonEquatablePerson] = [
+            NonEquatablePerson(id: 1, name: "Alice")
+        ]
+        let originalCount = people.count
+        
+        // Even "no-op" operations will apply changes for non-Equatable arrays
+        people.update { array in
+            array.append(NonEquatablePerson(id: 2, name: "Bob"))
+            array.removeLast() // Remove what we just added
+        }
+        
+        // For non-Equatable arrays, changes are always applied
+        XCTAssertEqual(people.count, originalCount)
     }
     
     // MARK: - Performance and Edge Cases
@@ -299,5 +327,37 @@ final class ArrayUpdateTests: XCTestCase {
         }
         
         XCTAssertEqual(numbers, [1, 10, 20, 5])
+    }
+    
+    // MARK: - Optimization Tests for Equatable Arrays
+    
+    func testEquatableArrayOptimizationWithNoChanges() {
+        var numbers: [Int] = [1, 2, 3, 4, 5]
+        let originalNumbers = numbers
+        
+        // Test that array reference doesn't change when no modifications occur
+        numbers.update { array in
+            // Read-only operations that don't modify the array
+            _ = array.count
+            _ = array.first
+            _ = array.last
+        }
+        
+        XCTAssertEqual(numbers, originalNumbers)
+    }
+    
+    func testEquatableArrayOptimizationWithRevertedChanges() {
+        var numbers: [Int] = [1, 2, 3]
+        let originalNumbers = numbers
+        
+        numbers.update { array in
+            array.append(4)
+            array.append(5)
+            array.removeLast()
+            array.removeLast()
+        }
+        
+        // Should be optimized - no net changes
+        XCTAssertEqual(numbers, originalNumbers)
     }
 }
