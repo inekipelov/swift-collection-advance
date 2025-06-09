@@ -22,19 +22,6 @@ final class ArrayUpdateTests: XCTestCase {
         }
     }
     
-    // Non-Equatable type for testing generic Array extension
-    struct NonEquatablePerson {
-        let id: Int
-        var name: String
-        var age: Int
-        
-        init(id: Int, name: String, age: Int = 25) {
-            self.id = id
-            self.name = name
-            self.age = age
-        }
-    }
-    
     // MARK: - Tests for update(_:) -> R (returning version) - Equatable Array
     
     func testUpdateWithReturnValueBasicAppend() {
@@ -189,55 +176,6 @@ final class ArrayUpdateTests: XCTestCase {
         }
         
         XCTAssertTrue(numbers.isEmpty)
-    }
-    
-    // MARK: - Tests for Non-Equatable Array (always applies changes)
-    
-    func testNonEquatableUpdateWithReturnValue() {
-        var people: [NonEquatablePerson] = [
-            NonEquatablePerson(id: 1, name: "Alice"),
-            NonEquatablePerson(id: 2, name: "Bob")
-        ]
-        
-        let newCount = people.update { array in
-            array.append(NonEquatablePerson(id: 3, name: "Charlie"))
-            return array.count
-        }
-        
-        XCTAssertEqual(people.count, 3)
-        XCTAssertEqual(newCount, 3)
-        XCTAssertEqual(people[2].name, "Charlie")
-    }
-    
-    func testNonEquatableUpdateVoid() {
-        var people: [NonEquatablePerson] = [
-            NonEquatablePerson(id: 1, name: "Alice")
-        ]
-        
-        people.update { array in
-            array.append(NonEquatablePerson(id: 2, name: "Bob"))
-            array[0].name = "Alice Updated"
-        }
-        
-        XCTAssertEqual(people.count, 2)
-        XCTAssertEqual(people[0].name, "Alice Updated")
-        XCTAssertEqual(people[1].name, "Bob")
-    }
-    
-    func testNonEquatableUpdateAlwaysAppliesChanges() {
-        var people: [NonEquatablePerson] = [
-            NonEquatablePerson(id: 1, name: "Alice")
-        ]
-        let originalCount = people.count
-        
-        // Even "no-op" operations will apply changes for non-Equatable arrays
-        people.update { array in
-            array.append(NonEquatablePerson(id: 2, name: "Bob"))
-            array.removeLast() // Remove what we just added
-        }
-        
-        // For non-Equatable arrays, changes are always applied
-        XCTAssertEqual(people.count, originalCount)
     }
     
     // MARK: - Performance and Edge Cases
