@@ -61,7 +61,7 @@ mutableUsers.removeDuplicates(by: \.id)
 // Result: [User(id: 1, name: "John"), User(id: 2, name: "Jane")]
 
 // Get unique elements (returns new array)
-let uniqueUsers = users.unique(by: \.id)
+let uniqueUsers = users.removedDuplicates(by: \.id)
 let uniqueHashableUsers = users.removedDuplicates(by: \.id) // More efficient for Hashable properties
 
 // MARK: - Grouping Operations
@@ -247,10 +247,10 @@ import CollectionAdvance
 
 // MARK: - Unique Operations
 let numbers = [1, 2, 3, 2, 4, 1, 5]
-let uniqueNumbers = numbers.unique() // [1, 2, 3, 4, 5]
+let uniqueNumbers = numbers.removedDuplicates() // [1, 2, 3, 4, 5]
 
 let people = [Person(id: 1, name: "Alice"), Person(id: 2, name: "Bob"), Person(id: 1, name: "Alice Copy")]
-let uniquePeople = people.unique(by: \.id) // [Person(id: 1, name: "Alice"), Person(id: 2, name: "Bob")]
+let uniquePeople = people.removedDuplicates(by: \.id) // [Person(id: 1, name: "Alice"), Person(id: 2, name: "Bob")]
 
 // MARK: - Sorting by Reference Array
 struct Task {
