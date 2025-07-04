@@ -3,25 +3,24 @@
 [![Swift Version](https://img.shields.io/badge/Swift-5.1+-orange.svg)](https://swift.org/)
 [![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Swift Tests](https://github.com/inekipelov/swift-collection-advance/actions/workflows/swift.yml/badge.svg)](https://github.com/inekipelov/swift-collection-advance/actions/workflows/swift.yml)
+[![Swift Tests](https://github.com/inekipelov/swift-collection-advance/actions/workflows/swift.yml/badge.svg)](https://github.com/inekipelov/swift-collection-advance/actions/workflows/swift.yml)  
+[![iOS](https://img.shields.io/badge/iOS-13.0+-blue.svg)](https://developer.apple.com/ios/)
+[![macOS](https://img.shields.io/badge/macOS-10.15+-white.svg)](https://developer.apple.com/macos/)
+[![tvOS](https://img.shields.io/badge/tvOS-13.0+-black.svg)](https://developer.apple.com/tvos/)
+[![watchOS](https://img.shields.io/badge/watchOS-6.0+-orange.svg)](https://developer.apple.com/watchos/)
 
 A comprehensive collection of extensions for Swift's collection types (Array, Set, Dictionary, and more) that provide powerful, safe, and expressive APIs for common operations.
 
 ## Features
 
-- **🛡️ Safe Subscripting**: Access collection elements with optional indices, preventing out-of-bounds crashes
-- **🆔 Identifiable Support**: Advanced extensions for working with Swift's `Identifiable` protocol
-- **📋 Array Extensions**: Unique filtering, grouping, atomic updates, safe removal, and sorting operations
-- **📦 Set Extensions**: Predicate-based operations, atomic updates, and Identifiable element management
-- **🗂️ Dictionary Extensions**: Atomic update operations with change detection
-- **🔍 Collection Extensions**: Universal utilities for all collection types
-- **🏗️ Sequence Extensions**: Unique filtering, sorting, and update operations
-- **⚡ Atomic Operations**: Update collections with optimized change detection and atomic modifications
-
-## Requirements
-
-- Swift 5.1+
-- iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+
+- **Safe Subscripting**: Access collection elements with optional indices, preventing out-of-bounds crashes
+- **Identifiable Support**: Advanced extensions for working with Swift's `Identifiable` protocol
+- **Array Extensions**: Unique filtering, grouping, atomic updates, safe removal, and sorting operations
+- **Set Extensions**: Predicate-based operations, atomic updates, and Identifiable element management
+- **Dictionary Extensions**: Atomic update operations with change detection
+- **Collection Extensions**: Universal utilities for all collection types
+- **Sequence Extensions**: Unique filtering, sorting, and update operations
+- **Atomic Operations**: Update collections with optimized change detection and atomic modifications
 
 ## Installation
 
