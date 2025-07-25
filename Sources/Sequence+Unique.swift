@@ -15,10 +15,10 @@ public extension Sequence where Iterator.Element: Hashable {
     /// # Example
     /// ```swift
     /// let numbers = [1, 2, 3, 2, 4, 1, 5]
-    /// let uniqueNumbers = numbers.unique() // [1, 2, 3, 4, 5]
+    /// let uniqueNumbers = numbers.removedDuplicates() // [1, 2, 3, 4, 5]
     /// 
     /// let words = ["apple", "banana", "apple", "cherry", "banana"]
-    /// let uniqueWords = words.unique() // ["apple", "banana", "cherry"]
+    /// let uniqueWords = words.removedDuplicates() // ["apple", "banana", "cherry"]
     /// ```
     func removedDuplicates() -> [Iterator.Element] {
         var seen: Set<Iterator.Element> = []
@@ -42,8 +42,8 @@ public extension Sequence where Iterator.Element: Hashable {
     ///     Person(id: 1, name: "Alice Copy"), // Duplicate ID
     ///     Person(id: 3, name: "Charlie")
     /// ]
-    /// 
-    /// let uniquePeople = people.unique(by: \.id)
+    ///
+    /// let uniquePeople = people.removedDuplicates(by: \.id)
     /// // Result: [Person(id: 1, name: "Alice"), Person(id: 2, name: "Bob"), Person(id: 3, name: "Charlie")]
     /// ```
     func removedDuplicates<T: Hashable>(by path: KeyPath<Element, T>) -> [Element] {
