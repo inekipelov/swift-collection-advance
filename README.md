@@ -15,95 +15,91 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 
 ### Array Extensions
 
-#### Duplicate Removal (Equatable Elements)
-- `removeDuplicates() -> Self` - Remove duplicates in-place
-- `removedDuplicates() -> [Element]` - Returns new array without duplicates
-- `removeDuplicates(by keyPath:) -> Self` - Remove duplicates by equatable key path (in-place, O(n²))
-- `removedDuplicates(by keyPath:) -> [Element]` - Returns new array without duplicates by equatable key path (O(n²))
-- `removeDuplicates(by keyPath:) -> Self` - Remove duplicates by hashable key path (in-place, O(n))
-- `removedDuplicates(by keyPath:) -> [Element]` - Returns new array without duplicates by hashable key path (O(n))
-
-#### Grouping
-- `grouped(by closure:) -> [T: [Element]]` - Group elements by closure result
-- `grouped(by keyPath:) -> [T: [Element]]` - Group elements by key path
-
-#### Atomic Updates (Equatable Elements)
-- `update<R>(_ closure:) -> R` - Atomic update with return value, only applies if changed
-- `update(_ closure:)` - Atomic update without return value, only applies if changed
-
-#### Atomic Updates (Any Elements)
-- `update<R>(_ closure:) -> R` - Atomic update with return value, always applies
-- `update(_ closure:)` - Atomic update without return value, always applies
-
-#### Array Manipulation
-- `prepend(_ element:)` - Add element to beginning of array
-- `remove(at offset: IndexSet)` - Remove elements at multiple indices
-- `move(fromOffsets:toOffset:)` - Move elements from indices to new position
-
-#### Identifiable Elements
-- `subscript(id:) -> Element?` - Get/set/remove elements by ID
-- `remove(id:)` - Remove all elements with specified ID
-- `move(id:to:)` - Move element with ID to new index
-- `swap(_:and:)` - Swap positions of elements by their IDs
+| Method | Description |
+|--------|-------------|
+| `removeDuplicates() -> Self` | Remove duplicates in-place |
+| `removedDuplicates() -> [Element]` | Returns new array without duplicates |
+| `removeDuplicates(by keyPath:) -> Self` | Remove duplicates by equatable key path (in-place, O(n²)) |
+| `removedDuplicates(by keyPath:) -> [Element]` | Returns new array without duplicates by equatable key path (O(n²)) |
+| `removeDuplicates(by keyPath:) -> Self` | Remove duplicates by hashable key path (in-place, O(n)) |
+| `removedDuplicates(by keyPath:) -> [Element]` | Returns new array without duplicates by hashable key path (O(n)) |
+| `grouped(by closure:) -> [T: [Element]]` | Group elements by closure result |
+| `grouped(by keyPath:) -> [T: [Element]]` | Group elements by key path |
+| `update<R>(_ closure:) -> R` | Atomic update with return value, only applies if changed |
+| `update(_ closure:)` | Atomic update without return value, only applies if changed |
+| `update<R>(_ closure:) -> R` | Atomic update with return value, always applies |
+| `update(_ closure:)` | Atomic update without return value, always applies |
+| `prepend(_ element:)` | Add element to beginning of array |
+| `remove(at offset: IndexSet)` | Remove elements at multiple indices |
+| `move(fromOffsets:toOffset:)` | Move elements from indices to new position |
+| `subscript(id:) -> Element?` | Get/set/remove elements by ID |
+| `remove(id:)` | Remove all elements with specified ID |
+| `move(id:to:)` | Move element with ID to new index |
+| `swap(_:and:)` | Swap positions of elements by their IDs |
 
 ### Collection Extensions
 
-#### Safe Access
-- `subscript(optional:) -> Element?` - Safe subscript that returns nil for out-of-bounds
+| Method | Description |
+|--------|-------------|
+| `subscript(optional:) -> Element?` | Safe subscript that returns nil for out-of-bounds |
+| `first(with id:) -> Element?` | Find first element with ID |
+| `firstIndex(with id:) -> Index?` | Find index of first element with ID |
+| `all(with id:) -> [Element]` | Get all elements with ID |
+| `allIndexes(with id:) -> [Index]` | Get all indices of elements with ID |
+| `contains(id:) -> Bool` | Check if collection contains element with ID |
+| `dictionaryKeyedByID() -> [Element.ID: Element]` | Create dictionary keyed by element IDs |
 
-#### Identifiable Elements
-- `first(with id:) -> Element?` - Find first element with ID
-- `firstIndex(with id:) -> Index?` - Find index of first element with ID
-- `all(with id:) -> [Element]` - Get all elements with ID
-- `allIndexes(with id:) -> [Index]` - Get all indices of elements with ID
-- `contains(id:) -> Bool` - Check if collection contains element with ID
-- `dictionaryKeyedByID() -> [Element.ID: Element]` - Create dictionary keyed by element IDs
+### Empty & Optional Collection Utilities
+
+| Method | Description |
+|--------|-------------|
+| `var nonEmpty: Self?` | Returns self if not empty, otherwise nil. |
+| `func onEmpty(_ closure: (Self) -> Void) -> Self` | Executes closure if the collection is empty. Returns self for chaining. |
+| `func onNonEmpty(_ closure: (Self) -> Void) -> Self` | Executes closure if the collection is not empty. Returns self for chaining. |
+| `static var empty: Self` | Returns an empty collection of this type. |
+| `static var empty: Set<Element>` | Returns an empty Set of the current Element type. |
+| `static var empty: Dictionary<Key, Value>` | Returns an empty Dictionary of the current Key/Value type. |
+| `var nonEmpty: Wrapped?` | Returns the collection if it is not empty, otherwise nil. |
+| `var isNilOrEmpty: Bool` | Returns true if the optional is nil or the collection is empty. |
+| `var orEmpty: Wrapped` | Returns the empty collection if nil, otherwise self. |
+| `var orEmpty: Wrapped` | Returns the empty Set if nil, otherwise self. |
+| `var orEmpty: Wrapped` | Returns the empty Dictionary if nil, otherwise self. |
 
 ### Sequence Extensions
 
-#### Unique Operations (Hashable Elements)
-- `removedDuplicates() -> [Element]` - Remove duplicates from sequence
-- `removedDuplicates(by keyPath:) -> [Element]` - Remove duplicates by key path
-
-#### Unique Operations (Equatable Elements)
-- `removedDuplicates() -> [Element]` - Remove duplicates from sequence
-- `removedDuplicates(by keyPath:) -> [Element]` - Remove duplicates by key path
-
-#### Sorting (Comparable Elements)
-- `sorted(like:keyPath:) -> [Element]` - Sort according to order of reference array
-
-#### Atomic Updates (Any Elements)
-- `update<R>(_ closure:) -> R` - Atomic update with return value, always applies
-- `update(_ closure:)` - Atomic update without return value, always applies
+| Method | Description |
+|--------|-------------|
+| `removedDuplicates() -> [Element]` | Remove duplicates from sequence |
+| `removedDuplicates(by keyPath:) -> [Element]` | Remove duplicates by key path |
+| `sorted(like:keyPath:) -> [Element]` | Sort according to order of reference array |
+| `update<R>(_ closure:) -> R` | Atomic update with return value, always applies |
+| `update(_ closure:)` | Atomic update without return value, always applies |
 
 ### Dictionary Extensions
 
-#### Atomic Updates (Equatable Values)
-- `update<R>(_ closure:) -> R` - Atomic update with return value, only applies if changed
-- `update(_ closure:)` - Atomic update without return value, only applies if changed
-#### Key Transformation
-- `compactMapKeys(_ transform:) -> [T: Value]` - Returns a dictionary with transformed non-nil keys. If keys collide, the last value is kept.
+| Method | Description |
+|--------|-------------|
+| `update<R>(_ closure:) -> R` | Atomic update with return value, only applies if changed |
+| `update(_ closure:)` | Atomic update without return value, only applies if changed |
+| `compactMapKeys(_ transform:) -> [T: Value]` | Returns a dictionary with transformed non-nil keys. If keys collide, the last value is kept. |
 
 ### Set Extensions
 
-#### Atomic Updates
-- `update<R>(_ closure:) -> R` - Atomic update with return value, only applies if changed
-- `update(_ closure:)` - Atomic update without return value, only applies if changed
-
-#### Identifiable Elements
-- `subscript(id:) -> Element?` - Get/set/remove elements by ID
-- `update(by id:using:) -> Bool` - Update element with specified ID
-- `remove(by id:) -> Bool` - Remove element with specified ID
-
-#### Predicate-based Operations
-- `update(where:using:) -> Bool` - Update first element matching predicate
-- `update(by keyPath:equal:using:) -> Bool` - Update first element with matching key path value
-- `updateAll(where:using:) -> Int` - Update all elements matching predicate
-- `updateAll(by keyPath:equal:using:) -> Int` - Update all elements with matching key path value
-- `remove(where:) -> Bool` - Remove first element matching predicate
-- `remove(by keyPath:equal:) -> Bool` - Remove first element with matching key path value
-- `removeAll(where:) -> Int` - Remove all elements matching predicate
-- `removeAll(by keyPath:equal:) -> Int` - Remove all elements with matching key path value
+| Method | Description |
+|--------|-------------|
+| `update<R>(_ closure:) -> R` | Atomic update with return value, only applies if changed |
+| `update(_ closure:)` | Atomic update without return value, only applies if changed |
+| `subscript(id:) -> Element?` | Get/set/remove elements by ID |
+| `update(by id:using:) -> Bool` | Update element with specified ID |
+| `remove(by id:) -> Bool` | Remove element with specified ID |
+| `update(where:using:) -> Bool` | Update first element matching predicate |
+| `update(by keyPath:equal:using:) -> Bool` | Update first element with matching key path value |
+| `updateAll(where:using:) -> Int` | Update all elements matching predicate |
+| `updateAll(by keyPath:equal:using:) -> Int` | Update all elements with matching key path value |
+| `remove(where:) -> Bool` | Remove first element matching predicate |
+| `remove(by keyPath:equal:) -> Bool` | Remove first element with matching key path value |
+| `removeAll(where:) -> Int` | Remove all elements matching predicate |
+| `removeAll(by keyPath:equal:) -> Int` | Remove all elements with matching key path value |
 
 ## Performance Considerations
 
