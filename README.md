@@ -81,6 +81,8 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 #### Atomic Updates (Equatable Values)
 - `update<R>(_ closure:) -> R` - Atomic update with return value, only applies if changed
 - `update(_ closure:)` - Atomic update without return value, only applies if changed
+#### Key Transformation
+- `compactMapKeys(_ transform:) -> [T: Value]` - Returns a dictionary with transformed non-nil keys. If keys collide, the last value is kept.
 
 ### Set Extensions
 
