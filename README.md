@@ -13,6 +13,40 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 
 ## Complete API Reference
 
+### Sequence Extensions
+
+| Method | Description |
+|--------|-------------|
+| `removedDuplicates() -> [Element]` | Remove duplicates from sequence |
+| `removedDuplicates(by keyPath:) -> [Element]` | Remove duplicates by key path |
+| `sorted(like:keyPath:) -> [Element]` | Sort according to order of reference array |
+| `update<R>(_ closure:) -> R` | Atomic update with return value, always applies |
+| `update(_ closure:)` | Atomic update without return value, always applies |
+
+### Collection Extensions
+
+| Method | Description |
+|--------|-------------|
+| `subscript(optional:) -> Element?` | Safe subscript that returns nil for out-of-bounds |
+| `first(with id:) -> Element?` | Find first element with ID |
+| `firstIndex(with id:) -> Index?` | Find index of first element with ID |
+| `all(with id:) -> [Element]` | Get all elements with ID |
+| `allIndexes(with id:) -> [Index]` | Get all indices of elements with ID |
+| `contains(id:) -> Bool` | Check if collection contains element with ID |
+| `dictionaryKeyedByID() -> [Element.ID: Element]` | Create dictionary keyed by element IDs |
+| `var nonEmpty: Self?` | Returns self if not empty, otherwise nil. |
+| `func onEmpty(_ closure: (Self) -> Void) -> Self` | Executes closure if the collection is empty. Returns self for chaining. |
+| `func onNonEmpty(_ closure: (Self) -> Void) -> Self` | Executes closure if the collection is not empty. Returns self for chaining. |
+| `static var empty: Self` | Returns an empty collection of this type. |
+
+#### Collection Extensions (Optional)
+
+| Method | Description |
+|--------|-------------|
+| `var nonEmpty: Wrapped?` | Returns the collection if it is not empty, otherwise nil. |
+| `var isNilOrEmpty: Bool` | Returns true if the optional is nil or the collection is empty. |
+| `var orEmpty: Wrapped` | Returns the empty collection if nil, otherwise self. |
+
 ### Array Extensions
 
 | Method | Description |
@@ -33,47 +67,11 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 | `remove(at offset: IndexSet)` | Remove elements at multiple indices |
 | `move(fromOffsets:toOffset:)` | Move elements from indices to new position |
 | `subscript(id:) -> Element?` | Get/set/remove elements by ID |
+| `subscript(circular:) -> Element` | Access array elements by index with circular (wrap-around) behavior |
 | `remove(id:)` | Remove all elements with specified ID |
 | `move(id:to:)` | Move element with ID to new index |
 | `swap(_:and:)` | Swap positions of elements by their IDs |
 
-### Collection Extensions
-
-| Method | Description |
-|--------|-------------|
-| `subscript(optional:) -> Element?` | Safe subscript that returns nil for out-of-bounds |
-| `first(with id:) -> Element?` | Find first element with ID |
-| `firstIndex(with id:) -> Index?` | Find index of first element with ID |
-| `all(with id:) -> [Element]` | Get all elements with ID |
-| `allIndexes(with id:) -> [Index]` | Get all indices of elements with ID |
-| `contains(id:) -> Bool` | Check if collection contains element with ID |
-| `dictionaryKeyedByID() -> [Element.ID: Element]` | Create dictionary keyed by element IDs |
-
-### Empty & Optional Collection Utilities
-
-| Method | Description |
-|--------|-------------|
-| `var nonEmpty: Self?` | Returns self if not empty, otherwise nil. |
-| `func onEmpty(_ closure: (Self) -> Void) -> Self` | Executes closure if the collection is empty. Returns self for chaining. |
-| `func onNonEmpty(_ closure: (Self) -> Void) -> Self` | Executes closure if the collection is not empty. Returns self for chaining. |
-| `static var empty: Self` | Returns an empty collection of this type. |
-| `static var empty: Set<Element>` | Returns an empty Set of the current Element type. |
-| `static var empty: Dictionary<Key, Value>` | Returns an empty Dictionary of the current Key/Value type. |
-| `var nonEmpty: Wrapped?` | Returns the collection if it is not empty, otherwise nil. |
-| `var isNilOrEmpty: Bool` | Returns true if the optional is nil or the collection is empty. |
-| `var orEmpty: Wrapped` | Returns the empty collection if nil, otherwise self. |
-| `var orEmpty: Wrapped` | Returns the empty Set if nil, otherwise self. |
-| `var orEmpty: Wrapped` | Returns the empty Dictionary if nil, otherwise self. |
-
-### Sequence Extensions
-
-| Method | Description |
-|--------|-------------|
-| `removedDuplicates() -> [Element]` | Remove duplicates from sequence |
-| `removedDuplicates(by keyPath:) -> [Element]` | Remove duplicates by key path |
-| `sorted(like:keyPath:) -> [Element]` | Sort according to order of reference array |
-| `update<R>(_ closure:) -> R` | Atomic update with return value, always applies |
-| `update(_ closure:)` | Atomic update without return value, always applies |
 
 ### Dictionary Extensions
 
@@ -82,6 +80,13 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 | `update<R>(_ closure:) -> R` | Atomic update with return value, only applies if changed |
 | `update(_ closure:)` | Atomic update without return value, only applies if changed |
 | `compactMapKeys(_ transform:) -> [T: Value]` | Returns a dictionary with transformed non-nil keys. If keys collide, the last value is kept. |
+| `static var empty: Dictionary<Key, Value>` | Returns an empty Dictionary of the current Key/Value type. |
+
+#### Dictionary Extensions (Optional)
+
+| Method | Description |
+|--------|-------------|
+| `var orEmpty: Wrapped` | Returns the empty Dictionary if nil, otherwise self. |
 
 ### Set Extensions
 
@@ -100,6 +105,13 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 | `remove(by keyPath:equal:) -> Bool` | Remove first element with matching key path value |
 | `removeAll(where:) -> Int` | Remove all elements matching predicate |
 | `removeAll(by keyPath:equal:) -> Int` | Remove all elements with matching key path value |
+| `static var empty: Set<Element>` | Returns an empty Set of the current Element type. |
+
+#### Set Extensions (Optional)
+
+| Method | Description |
+|--------|-------------|
+| `var orEmpty: Wrapped` | Returns the empty Set if nil, otherwise self. |
 
 ## Performance Considerations
 
