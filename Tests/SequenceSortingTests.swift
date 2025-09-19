@@ -8,14 +8,10 @@ import XCTest
 
 final class SequenceSortingTests: XCTestCase {
     
-    struct TestItem: Comparable {
+    struct TestItem: Hashable {
         let id: Int
         let category: String
         let name: String
-        
-        static func < (lhs: TestItem, rhs: TestItem) -> Bool {
-            lhs.id < rhs.id
-        }
     }
     
     func testSortedLikeWithStringKeyPath() {
@@ -77,7 +73,7 @@ final class SequenceSortingTests: XCTestCase {
         
         // Should maintain original order when reference array is empty
         XCTAssertEqual(sorted.count, 2)
-        XCTAssertEqual(sorted, items.sorted())
+        XCTAssertEqual(sorted, items)
     }
     
     func testSortedLikeWithEmptySequence() {
@@ -120,3 +116,4 @@ final class SequenceSortingTests: XCTestCase {
         XCTAssertEqual(sorted.map(\.id), [1, 2, 3])
     }
 }
+

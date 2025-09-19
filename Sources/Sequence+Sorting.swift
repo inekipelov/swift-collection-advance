@@ -3,7 +3,7 @@
 //  swift-collection-advance
 //
 
-public extension Sequence where Element: Comparable {
+public extension Sequence where Element: Hashable {
     
     /// Sorts the sequence elements according to the order defined by another array.
     ///
