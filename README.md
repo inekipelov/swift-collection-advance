@@ -65,7 +65,6 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 | `update(_ closure:)` | Atomic update without return value, always applies |
 | `prepend(_ element:)` | Add element to beginning of array |
 | `remove(at offset: IndexSet)` | Remove elements at multiple indices |
-| `move(fromOffsets:toOffset:)` | Move elements from indices to new position |
 | `subscript(id:) -> Element?` | Get/set/remove elements by ID |
 | `subscript(circular:) -> Element` | Access array elements by index with circular (wrap-around) behavior |
 | `remove(id:)` | Remove all elements with specified ID |
