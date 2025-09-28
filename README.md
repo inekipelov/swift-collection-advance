@@ -19,7 +19,7 @@ A comprehensive collection of extensions for Swift's collection types (Array, Se
 |--------|-------------|
 | `removedDuplicates() -> [Element]` | Remove duplicates from sequence |
 | `removedDuplicates(by keyPath:) -> [Element]` | Remove duplicates by key path |
-| `sorted(like:keyPath:) -> [Element]` | Sort according to order of reference array |
+| `sorted(accordingTo:by:) -> [Element]` | Sort according to order of reference array |
 | `update<R>(_ closure:) -> R` | Atomic update with return value, always applies |
 | `update(_ closure:)` | Atomic update without return value, always applies |
 
